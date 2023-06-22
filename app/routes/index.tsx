@@ -1,7 +1,5 @@
 import {json} from "@remix-run/node"
 import {useLoaderData} from "@remix-run/react"
-import TextArea from "~/components/TextArea"
-import {textarea} from "~/components/TextArea.css"
 import getWorlds from "~/models/getWorlds"
 
 export const loader = async () => {
@@ -11,8 +9,9 @@ export const loader = async () => {
 
 export default function Index() {
 	const {worlds} = useLoaderData<typeof loader>()
-	return (<>
-		<div>{JSON.stringify(worlds)}</div>
-		<TextArea className={textarea}></TextArea>
-	</>)
+	return (
+		<>
+			{worlds.map(world => <a href={`/worlds/${world.id}`}>{world.title}</a>)}
+		</>
+	)
 }

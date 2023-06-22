@@ -1,9 +1,14 @@
 import sql from "~/models/sql"
 
-export default async function getWorlds() {
-	const users = await sql`
-		select id, title
-		from worlds
+export default async function getWorlds(): Promise<Array<World>> {
+	const worlds = await sql`
+      select id, title
+      from worlds
 	`
-	return users
+	return worlds as unknown as Array<World>
+}
+
+type World = {
+	id: number,
+	title: string
 }
